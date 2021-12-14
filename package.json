@@ -18,6 +18,24 @@
   "main": "dist/index.js",
   "scripts": {},
   "dependencies": {
+    "cosmiconfig": "^7.0.1",
     "sitemap": "^7.0.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
+    "eslint": "^8.4.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4",
+    "webpack": "^5.65.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser"
   }
 }
