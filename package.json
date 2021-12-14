@@ -1,0 +1,23 @@
+{
+  "name": "seo-webpack-plugin",
+  "version": "0.1.0",
+  "description": "Webpack plugin to manage SEO files (sitemap, robots.txt) via configuration",
+  "author": "Antoine Milochau",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amilochau/seo-webpack-plugin"
+  },
+  "homepage": "https://github.com/amilochau/seo-webpack-plugin#readme",
+  "bugs": {
+    "url": "https://github.com/amilochau/seo-webpack-plugin/issues"
+  },
+  "funding": "https://github.com/sponsors/amilochau",
+  "company": "Milochau",
+  "copyright": "Copyright © Milochau",
+  "main": "dist/index.js",
+  "scripts": {},
+  "dependencies": {
+    "sitemap": "^7.0.0"
+  }
+}
