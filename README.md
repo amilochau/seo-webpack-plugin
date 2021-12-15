@@ -55,8 +55,8 @@ Use your `package.json` file to configure your SEO for the plugin, with a dedica
     ],
     "pages": [
       {
-        "url": "/",
-        "changefreq": "daily",
+        "relativeUrl": "/",
+        "changeFrequency": "daily",
         "priority": 0.6
       }
     ],

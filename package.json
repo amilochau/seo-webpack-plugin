@@ -16,7 +16,9 @@
   "company": "Milochau",
   "copyright": "Copyright © Milochau",
   "main": "dist/index.js",
-  "scripts": {},
+  "scripts": {
+    "build": "rollup -c rollup.config.ts"
+  },
   "dependencies": {
     "cosmiconfig": "^7.0.1",
     "sitemap": "^7.0.0"
