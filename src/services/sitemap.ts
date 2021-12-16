@@ -10,7 +10,7 @@ function writePageAttributes (sitemap: SitemapStream, page: PageItem, lastModifi
         lastmod: lastModification,
         changefreq: page.changeFrequency,
         priority: page.priority,
-        links: [],
+        links: new Array<{ lang: string, url: string }>(),
       }
 
       languages.forEach(l2 => {

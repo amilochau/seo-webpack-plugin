@@ -23,5 +23,7 @@ export type SeoPluginOptions = {
 
   robotsFileName?: string
 
+  sitemapFileName?: string
+
   disableSeoCondition?: () => boolean
 }
