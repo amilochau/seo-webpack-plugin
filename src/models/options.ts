@@ -1,25 +1,27 @@
-export class PolicyItem {
+export type PolicyItem = {
   userAgent: string
   allow?: string
   disallow?: string
 }
 
-export class PageItem {
+export type PageItem = {
   relativeUrl: string
-  changeFrequency: string
+  changeFrequency: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never'
   priority: number
 }
 
-export class LanguageItem {
+export type LanguageItem = {
   lang: string
   relativePrefixUrl: string
 }
 
-export class SeoPluginOptions {
+export type SeoPluginOptions = {
   host: string
   policies: PolicyItem[]
   pages: PageItem[]
   languages: LanguageItem[]
 
-  robotsFileName = 'robots.txt'
+  robotsFileName?: string
+
+  disableSeoCondition?: () => boolean
 }

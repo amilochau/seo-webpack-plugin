@@ -1,0 +1,7 @@
+{
+  "name": "webpack-5",
+  "private": true,
+  "dependencies": {
+    "webpack": "^5"
+  }
+}

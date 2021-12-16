@@ -262,3 +262,6 @@ __pycache__/
 
 # Node.js distribution
 dist
+
+# Test results
+actual-output
