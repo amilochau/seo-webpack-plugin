@@ -265,3 +265,4 @@ dist
 
 # Test results
 actual-output
+coverage

@@ -20,23 +20,27 @@ export default class SeoWebpackPlugin {
       compilation.hooks.additionalAssets.tapPromise(plugin, async (): Promise<void> => {
         try {
           const config = await this.buildConfig()
+          const disableSeo = config.disableSeoCondition ? config.disableSeoCondition() : false
           
           // Generate sitemap.xml
-          const sitemap = await generateSitemapFile(config.host, config.pages, config.languages)
-          const sitemapSource = new sources.RawSource(sitemap)
+          let sitemapRelativePath: string | undefined = undefined;
+          if (!disableSeo) {
+            const sitemap = await generateSitemapFile(config.host, config.pages, config.languages)
+            const sitemapSource = new sources.RawSource(sitemap)
+            sitemapRelativePath = config.sitemapFileName ?? 'sitemap.xml'
 
-          if (compilation.emitAsset) {
-            compilation.emitAsset(config.sitemapFileName ?? 'sitemap.xml', sitemapSource)
-          } else {
-            // Remove this after drop support for webpack@4
-            compilation.assets[config.sitemapFileName ?? 'sitemap.xml'] = sitemapSource
+            if (compilation.emitAsset) {
+              compilation.emitAsset(sitemapRelativePath, sitemapSource)
+            } else {
+              // Remove this after drop support for webpack@4
+              compilation.assets[sitemapRelativePath] = sitemapSource
+            }
           }
-
+          
           // Generate robots.txt
-          const disableSeo = config.disableSeoCondition ? config.disableSeoCondition() : false
           const robotsFileContent = disableSeo
-            ? generateRobotsFile([{ userAgent: '*', disallow: '/' }], 'sitemap.xml')
-            : generateRobotsFile(config.policies, 'sitemap.xml')
+            ? generateRobotsFile([{ userAgent: '*', disallow: '/' }], config.host, sitemapRelativePath)
+            : generateRobotsFile(config.policies, config.host, sitemapRelativePath)
 
           const robotsSource = new sources.RawSource(robotsFileContent)
 

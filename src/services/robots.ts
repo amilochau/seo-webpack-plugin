@@ -34,15 +34,16 @@ const generatePolicyItem = (item: PolicyItem, index: number) => {
   return content
 }
 
-export const generateRobotsFile = (policies: PolicyItem[], sitemap: string): string => {
+export const generateRobotsFile = (policies: PolicyItem[], hostname: string, sitemapRelativePath?: string): string => {
   let content = ''
 
   policies.forEach((policy, index) => {
     content += generatePolicyItem(policy, index)
   })
 
-  if (sitemap) {
-    content += addLine('Sitemap', sitemap)
+  if (sitemapRelativePath) {
+    const sitemapAbsolutePath = `${hostname}/${sitemapRelativePath}`
+    content += addLine('Sitemap', sitemapAbsolutePath)
   }
 
   return content

@@ -31,11 +31,6 @@ export default async function directoryContains(referenceDir: string, targetDir:
   const referenceFiles = listFiles(referenceDir);
   const targetFiles = listFiles(targetDir);
 
-  console.log(referenceDir)
-  console.log(referenceFiles)
-  console.log(targetDir)
-  console.log(targetFiles)
-
   if (referenceFiles.length !== targetFiles.length) {
     return false;
   } else {

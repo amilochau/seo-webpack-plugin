@@ -11,7 +11,6 @@ export default {
   plugins: [
     new SeoWebpackPlugin({
       host: "https://example.com",
-      //disableSeoCondition: () => process.env.NODE_ENVIRONMENT !== 'Production',
       policies: [
         {
           userAgent: "*",
