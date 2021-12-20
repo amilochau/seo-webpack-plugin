@@ -6,28 +6,25 @@ import { generateSitemapFile } from './services/sitemap'
 
 export default class SeoWebpackPlugin {
   options: SeoPluginOptions
+  pluginName = 'seo-webpack-plugin'
 
   constructor (options: SeoPluginOptions) {
-    this.options = Object.assign({
-      robotsFileName: 'robots.txt'
-    }, options)
+    this.options = options
   }
 
   public apply (compiler: Compiler): void {
-    const plugin = { name: this.constructor.name }
-
     if (compiler.webpack && compiler.webpack.version[0] == '5') {
       // Webpack 5
-      compiler.hooks.compilation.tap('seo-webpack-plugin', compilation => {
+      compiler.hooks.compilation.tap(this.pluginName, compilation => {
         compilation.hooks.processAssets.tapPromise({
-          name: 'seo-webpack-plugin',
+          name: this.pluginName,
           stage: Compilation.PROCESS_ASSETS_STAGE_ADDITIONAL
         },
         async () => this.run(compilation))
       })
     } else if (compiler.hooks) {
       // Webpack 4
-      compiler.hooks.emit.tapPromise('seo-webpack-plugin', async compilation => this.run(compilation))
+      compiler.hooks.emit.tapPromise(this.pluginName, async compilation => this.run(compilation))
     }
   }
 
