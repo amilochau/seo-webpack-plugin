@@ -1,5 +1,5 @@
 import { cosmiconfig } from 'cosmiconfig'
-import { Compiler, sources, WebpackError } from 'webpack'
+import { Compilation, Compiler, sources, WebpackError } from 'webpack'
 import { SeoPluginOptions } from './models/options'
 import { generateRobotsFile } from './services/robots'
 import { generateSitemapFile } from './services/sitemap'
@@ -16,45 +16,56 @@ export default class SeoWebpackPlugin {
   public apply (compiler: Compiler): void {
     const plugin = { name: this.constructor.name }
 
-    compiler.hooks.compilation.tap(plugin, compilation => {
-      compilation.hooks.additionalAssets.tapPromise(plugin, async (): Promise<void> => {
-        try {
-          const config = await this.buildConfig()
-          const disableSeo = config.disableSeoCondition ? config.disableSeoCondition() : false
-          
-          // Generate sitemap.xml
-          let sitemapRelativePath: string | undefined = undefined;
-          if (!disableSeo) {
-            const sitemap = await generateSitemapFile(config.host, config.pages, config.languages)
-            const sitemapSource = new sources.RawSource(sitemap)
-            sitemapRelativePath = config.sitemapFileName ?? 'sitemap.xml'
-
-            if (compilation.emitAsset) {
-              compilation.emitAsset(sitemapRelativePath, sitemapSource)
-            } else {
-              // Remove this after drop support for webpack@4
-              compilation.assets[sitemapRelativePath] = sitemapSource
-            }
-          }
-          
-          // Generate robots.txt
-          const robotsFileContent = disableSeo
-            ? generateRobotsFile([{ userAgent: '*', disallow: '/' }], config.host, sitemapRelativePath)
-            : generateRobotsFile(config.policies, config.host, sitemapRelativePath)
-
-          const robotsSource = new sources.RawSource(robotsFileContent)
-
-          if (compilation.emitAsset) {
-            compilation.emitAsset(config.robotsFileName ?? 'robots.txt', robotsSource)
-          } else {
-            // Remove this after drop support for webpack@4
-            compilation.assets[config.robotsFileName ?? 'robots.txt'] = robotsSource
-          }
-        } catch (error) {
-          compilation.errors.push(error as WebpackError)
-        }
+    if (compiler.webpack && compiler.webpack.version[0] == '5') {
+      // Webpack 5
+      compiler.hooks.compilation.tap('seo-webpack-plugin', compilation => {
+        compilation.hooks.processAssets.tapPromise({
+          name: 'seo-webpack-plugin',
+          stage: Compilation.PROCESS_ASSETS_STAGE_ADDITIONAL
+        },
+        async () => this.run(compilation))
       })
-    })
+    } else if (compiler.hooks) {
+      // Webpack 4
+      compiler.hooks.emit.tapPromise('seo-webpack-plugin', async compilation => this.run(compilation))
+    }
+  }
+
+  private compilationEmitAsset (compilation: Compilation, file: string, content: string) {
+    const source = new sources.RawSource(content)
+    if (compilation.emitAsset) {
+      // Webpack 5
+      compilation.emitAsset(file, source);
+    } else {
+      // Webpack 4
+      compilation.assets[file] = source
+    }
+  }
+
+  private async run (compilation: Compilation): Promise<void> {
+    try {
+      const config = await this.buildConfig()
+      const disableSeo = config.disableSeoCondition ? config.disableSeoCondition() : false
+      
+      // Generate sitemap.xml
+      let sitemapRelativePath: string | undefined = undefined;
+      if (!disableSeo) {
+        const sitemap = await generateSitemapFile(config.host, config.pages, config.languages)
+        sitemapRelativePath = config.sitemapFileName ?? 'sitemap.xml'
+
+        this.compilationEmitAsset(compilation, sitemapRelativePath, sitemap)
+      }
+      
+      // Generate robots.txt
+      const robotsFileContent = disableSeo
+        ? generateRobotsFile([{ userAgent: '*', disallow: '/' }], config.host, sitemapRelativePath)
+        : generateRobotsFile(config.policies, config.host, sitemapRelativePath)
+      const robotsRelativePath = config.robotsFileName ?? 'robots.txt'
+      
+      this.compilationEmitAsset(compilation, robotsRelativePath, robotsFileContent)
+    } catch (error) {
+      compilation.errors.push(error as WebpackError)
+    } 
   }
   
   private buildConfig = async (): Promise<SeoPluginOptions> => {
