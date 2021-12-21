@@ -1,13 +1,13 @@
 import { SitemapStream } from "sitemap"
 import { LanguageItem, PageItem } from "../models/options"
 
-function writePageAttributes (sitemap: SitemapStream, page: PageItem, lastModification: string, languages: LanguageItem[]) {
+function writePageAttributes (sitemap: SitemapStream, page: PageItem, defaultLastModification: string, languages: LanguageItem[]) {
   if (languages?.length) {
     // Manage languages
     languages.forEach(l1 => {
       const pathAttributes = {
         url: `${l1.relativePrefixUrl}${page.relativeUrl}`.replace(/\/$/, ''),
-        lastmod: lastModification,
+        lastmod: page.lastModification ?? defaultLastModification,
         changefreq: page.changeFrequency,
         priority: page.priority,
         links: new Array<{ lang: string, url: string }>(),
@@ -26,7 +26,7 @@ function writePageAttributes (sitemap: SitemapStream, page: PageItem, lastModifi
     // No language defined
     sitemap.write({
       url: page.relativeUrl,
-      lastmod: lastModification,
+      lastmod: page.lastModification ?? defaultLastModification,
       changefreq: page.changeFrequency,
       priority: page.priority,
     })
@@ -35,10 +35,10 @@ function writePageAttributes (sitemap: SitemapStream, page: PageItem, lastModifi
 
 export const generateSitemapFile = (hostname: string, pages: PageItem[], languages: LanguageItem[]): Promise<string> => {
   const sitemap = new SitemapStream({ hostname })
-  const lastModification = new Date().toISOString().split('T')[0]
+  const defaultLastModification = new Date().toISOString().split('T')[0]
 
   pages.forEach(page => {
-    writePageAttributes(sitemap, page, lastModification, languages)
+    writePageAttributes(sitemap, page, defaultLastModification, languages)
   })
 
   sitemap.end()

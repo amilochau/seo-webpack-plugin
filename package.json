@@ -50,5 +50,11 @@
       "plugin:@typescript-eslint/recommended"
     ],
     "parser": "@typescript-eslint/parser"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "coveragePathIgnorePatterns": ["/node_modules/", "/test/"]
   }
 }

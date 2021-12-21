@@ -8,6 +8,7 @@ export type PageItem = {
   relativeUrl: string
   changeFrequency: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never'
   priority: number
+  lastModification?: string
 }
 
 export type LanguageItem = {

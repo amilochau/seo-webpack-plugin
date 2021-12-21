@@ -21,7 +21,8 @@ export default {
         {
           relativeUrl: "/",
           changeFrequency: "daily",
-          priority: 0.6
+          priority: 0.6,
+          lastModification: "2022-01-01"
         }
       ],
       languages: [

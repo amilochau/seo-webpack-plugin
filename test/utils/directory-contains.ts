@@ -32,6 +32,7 @@ export default async function directoryContains(referenceDir: string, targetDir:
   const targetFiles = listFiles(targetDir);
 
   if (referenceFiles.length !== targetFiles.length) {
+    console.warn(`Different length - referenceDir: "${referenceDir}" (${referenceFiles.length}) - targetDir: "${targetDir}" (${targetFiles.length})`)
     return false;
   } else {
     for (let i = 0; i < referenceFiles.length; i++) {
@@ -40,6 +41,7 @@ export default async function directoryContains(referenceDir: string, targetDir:
       );
       const targetFile = await readFile(join(targetDir, targetFiles[i]));
       if (referenceFile !== targetFile) {
+        console.warn(`Different file - referenceFile: "${referenceFile.length}" - targetFile: "${targetFile.length}"`)
         return false;
       }
     }
