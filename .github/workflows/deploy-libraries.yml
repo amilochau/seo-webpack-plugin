@@ -1,0 +1,20 @@
+name: Deploy libraries
+
+on:
+  workflow_dispatch:
+
+concurrency: deploy_libraries
+
+jobs:
+  deploy:
+    name: Deploy libraries
+    runs-on: ubuntu-latest
+    environment: PKG
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy libraries
+        uses: amilochau/github-actions/release/npm@amilochau/release-npm
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          npmjsComToken: ${{ secrets.NPMJSCOM_TOKEN }}
+          generateReleaseNotes: true

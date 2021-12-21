@@ -26,6 +26,10 @@
     "test": "jest",
     "lint": "eslint 'src/**/*.ts' 'test/**/*.ts'"
   },
+  "files": [
+    "dist/",
+    "src/"
+  ],
   "dependencies": {
     "cosmiconfig": "^7.0.1",
     "sitemap": "^7.0.0"
