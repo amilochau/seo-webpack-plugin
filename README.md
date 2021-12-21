@@ -23,15 +23,15 @@ npm install --save-dev seo-webpack-plugin
 
 1. Register the plugin
 
-In your webpack configuration, create a new instance of the `SeoPlugin`:
+In your webpack configuration, create a new instance of the `SeoWebpackPlugin`:
 
 **webpack.config.js**
 
 ```javascript
-const SeoPlugin = require('seo-webpack-plugin')
+const SeoWebpackPlugin = require('seo-webpack-plugin')
 
 module.exports = {
-  plugins: [new SeoPlugin()]
+  plugins: [new SeoWebpackPlugin()]
 }
 ```
 
@@ -55,8 +55,8 @@ Use your `package.json` file to configure your SEO for the plugin, with a dedica
     ],
     "pages": [
       {
-        "url": "/",
-        "changefreq": "daily",
+        "relativeUrl": "/",
+        "changeFrequency": "daily",
         "priority": 0.6
       }
     ],
