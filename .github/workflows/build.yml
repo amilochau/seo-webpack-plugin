@@ -1,0 +1,24 @@
+name: Build
+
+on:
+  push:
+    branches:
+    - main
+    paths:
+    - src/**
+    - test/**
+  pull_request:
+    branches:
+    - main
+    paths:
+    - src/**
+    - test/**
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and test project
+        uses: amilochau/github-actions/build/node@v1
