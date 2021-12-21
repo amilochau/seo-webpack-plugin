@@ -48,10 +48,7 @@ Use your `package.json` file to configure your SEO for the plugin, with a dedica
   "seo": {
     "host": "https://example.com",
     "policies": [
-      {
-        "userAgent": "*",
-        "allow": "/"
-      }
+      { "userAgent": "*", "allow": "/" }
     ],
     "pages": [
       {
