@@ -1,6 +1,6 @@
 {
   "name": "@amilochau/seo-webpack-plugin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Webpack plugin to manage SEO files (sitemap, robots.txt) via configuration",
   "author": "Antoine Milochau",
   "license": "MIT",
