@@ -3,6 +3,12 @@ import { Compilation, Compiler, sources, WebpackError } from 'webpack'
 import { SeoPluginOptions } from './models/options'
 import { generateRobotsFile } from './services/robots'
 import { generateSitemapFile } from './services/sitemap'
+import webpackSources from "webpack-sources";
+
+// Webpack 4/5 compat
+// https://github.com/webpack/webpack/issues/11425#issuecomment-686607633
+// istanbul ignore next
+const { RawSource } = sources || webpackSources;
 
 export default class SeoWebpackPlugin {
   options: SeoPluginOptions
@@ -29,7 +35,7 @@ export default class SeoWebpackPlugin {
   }
 
   private compilationEmitAsset (compilation: Compilation, file: string, content: string) {
-    const source = new sources.RawSource(content)
+    const source = new RawSource(content)
     if (compilation.emitAsset) {
       // Webpack 5
       compilation.emitAsset(file, source);

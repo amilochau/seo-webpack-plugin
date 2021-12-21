@@ -32,11 +32,13 @@
   ],
   "dependencies": {
     "cosmiconfig": "^7.0.1",
-    "sitemap": "^7.0.0"
+    "sitemap": "^7.0.0",
+    "webpack-sources": "^3.2.2"
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",
     "@types/rimraf": "^3.0.2",
+    "@types/webpack-sources": "^3.2.0",
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "eslint": "^8.4.1",
     "jest": "^27.4.5",
@@ -62,6 +64,9 @@
     "preset": "ts-jest",
     "testEnvironment": "node",
     "collectCoverage": true,
-    "coveragePathIgnorePatterns": ["/node_modules/", "/test/"]
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ]
   }
 }
