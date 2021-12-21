@@ -1,9 +1,12 @@
 {
-  "name": "seo-webpack-plugin",
+  "name": "@amilochau/seo-webpack-plugin",
   "version": "0.1.0",
   "description": "Webpack plugin to manage SEO files (sitemap, robots.txt) via configuration",
   "author": "Antoine Milochau",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/amilochau/seo-webpack-plugin"
@@ -18,7 +21,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "prebuild": "del dist",
+    "clean": "del dist",
     "build": "rollup -c rollup.config.ts",
     "test": "jest",
     "lint": "eslint 'src/**/*.ts' 'test/**/*.ts'"
