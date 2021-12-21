@@ -28,7 +28,7 @@ In your webpack configuration, create a new instance of the `SeoWebpackPlugin`:
 **webpack.config.js**
 
 ```javascript
-const SeoWebpackPlugin = require('seo-webpack-plugin')
+const SeoWebpackPlugin = require('seo-webpack-plugin').default
 
 module.exports = {
   plugins: [new SeoWebpackPlugin()]
