@@ -1,4 +1,4 @@
-# Readme - seo-webpack-plugin
+# seo-webpack-plugin
 
 ## Introduction
 
