@@ -11,6 +11,13 @@
     "type": "git",
     "url": "https://github.com/amilochau/seo-webpack-plugin"
   },
+  "keywords": [
+    "webpack",
+    "plugin",
+    "seo",
+    "sitemap",
+    "robots"
+  ],
   "homepage": "https://github.com/amilochau/seo-webpack-plugin#readme",
   "bugs": {
     "url": "https://github.com/amilochau/seo-webpack-plugin/issues"
