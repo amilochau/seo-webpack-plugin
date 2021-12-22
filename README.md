@@ -1,8 +1,8 @@
-# seo-webpack-plugin
+# @amilochau/seo-webpack-plugin
 
 ## Introduction
 
-`seo-webpack-plugin` exposes a Webpack plugin to generate SEO files:
+`@amilochau/seo-webpack-plugin` exposes a Webpack plugin to generate SEO files:
 
 - the `robots.txt` file lets crawler know which page they should visit, and references sitemap files
 - the `sitemap.xml` file (eventually split in multiple files) lets crawler know which pages they should index, with their references with multiple languages
@@ -11,14 +11,14 @@
 
 ## Integration
 
-To integrate the `seo-webpack-plugin`, you must follow these three steps.
+To integrate the `@amilochau/seo-webpack-plugin` package, you must follow these three steps.
 
 1. Install the npm package
 
 Run the following command to install the npm package:
 
 ```pwsh
-npm install --save-dev seo-webpack-plugin
+npm install --save-dev @amilochau/seo-webpack-plugin
 ```
 
 1. Register the plugin
