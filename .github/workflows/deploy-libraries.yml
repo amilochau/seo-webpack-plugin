@@ -13,8 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Deploy libraries
-        uses: amilochau/github-actions/release/npm@v1
+        uses: amilochau/github-actions/release/npm@v2
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           npmjsComToken: ${{ secrets.NPMJSCOM_TOKEN }}
-          generateReleaseNotes: true
