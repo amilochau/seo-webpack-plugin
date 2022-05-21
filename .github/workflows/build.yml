@@ -21,4 +21,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build and test project
-        uses: amilochau/github-actions/build/node@v2
+        uses: amilochau/github-actions/build/node@v3
