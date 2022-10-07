@@ -21,7 +21,7 @@ Run the following command to install the npm package:
 npm install --save-dev @amilochau/seo-webpack-plugin
 ```
 
-1. Register the plugin
+2. Register the plugin
 
 In your webpack configuration, create a new instance of the `SeoWebpackPlugin`:
 
@@ -35,7 +35,7 @@ module.exports = {
 }
 ```
 
-1. Configure your SEO
+3. Configure your SEO
 
 Use your `package.json` file to configure your SEO for the plugin, with a dedicated section named `seo`:
 
