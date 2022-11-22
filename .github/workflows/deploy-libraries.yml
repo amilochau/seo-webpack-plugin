@@ -1,4 +1,5 @@
 name: Deploy libraries
+run-name: Deploy libraries - ${{ github.ref }}
 
 on:
   workflow_dispatch:
